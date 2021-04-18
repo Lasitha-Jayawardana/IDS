@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
+
+    <title>{% block title %}{% endblock %}</title>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a class="navbar-brand navbar-logo" href="" style="color: #fff;"><img src="" width="30" height="30" class="d-inline-block align-top" alt=""> Intrusion Prediction System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+    </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto nav">
+                <div class="hori-selector">
+                    <div class="left"></div>
+                    <div class="right"></div>
+                </div>
+                <li class="nav-item active">
+                    <a class="nav-link" href="" data-target="#rowinput" data-toggle="tab"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" data-target="#csv" data-toggle="tab"><i class="far fa-address-book"></i>File Input </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div id="myTabContent" class="tab-content ">
+        <div class="tab-pane fade active show" id="rowinput">
+
+            <form class="container">
+
+                <div class="d-flex m-3">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">@</div>
+                        </div>
+                        <input type="text" class="form-control mr-1" name="rowinput" placeholder="Row Input">
+                    </div>
+                    <button type="button" class="btn btn-primary mb-2">Predict</button>
+                </div>
+        </div>
+        </form>
+
+
+        <div class="tab-pane fade container" id="csv">
+            <div class="d-flex m-3" style="justify-content: center">
+                <div class="input-group-prepend mb-2">
+                    <input type="file" id="file" name="file">
+
+                </div>
+                <button type="button" class="btn btn-primary mb-2">Predict</button>
+            </div>
+
+
+
+        </div>
+    </div>
+    <table id='myTable' class="table"></table>
+    <hr> {% block content %} {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script>
+        function GenerateTable(results) {
+            var markup = "<table class='table'>";
+            var data = results.data;
+
+            for (i = 0; i < data.length; i++) {
+                markup += "<tr>";
+                var row = data[i];
+                console.log(row);
+                var cells = row.join(",").split(",");
+
+                for (j = 0; j < cells.length; j++) {
+                    markup += "<td>";
+                    markup += cells[j];
+                    markup += "</th>";
+                }
+                markup += "</tr>";
+            }
+            markup += "</table>";
+
+            $("#myTable").html(markup);
+        }
+    </script>
+
+    <script>
+        var file = document.getElementById('file');
+        file.addEventListener('change', function() {
+            var reader = new FileReader();
+            var f = file.files[0];
+            reader.onload = function(e) {
+
+                $('#file').parse({
+                    config: {
+                        delimiter: "auto",
+                        complete: GenerateTable,
+                    },
+                    before: function(file, inputElem) {
+                        //console.log("Parsing file...", file);
+                    },
+                    error: function(err, file) {
+                        //console.log("ERROR:", err, file);
+                    },
+                    complete: function() {
+                        //console.log("Done with all files");
+                    }
+                });
+
+            };
+            reader.readAsText(f);
+        });
+    </script>
+
+</body>
+
+</html>
