@@ -13,7 +13,7 @@
 <body>
 
     <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <a class="navbar-brand navbar-logo" href="" style="color: #fff;"><img src="" width="30" height="30" class="d-inline-block align-top" alt=""> Intrusion Prediction System</a>
+        <a class="navbar-brand navbar-logo" href="" style="color: #fff;"> <i class="fas fa-user-secret" style="font-size:x-large"> </i>Intrusion Prediction System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars text-white"></i>
     </button>
@@ -35,6 +35,7 @@
         </div>
     </nav>
     <div id="myTabContent" class="tab-content ">
+
         <div class="tab-pane fade active show" id="rowinput">
 
             <form class="container">
@@ -44,9 +45,9 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">@</div>
                         </div>
-                        <input type="text" class="form-control mr-1" name="rowinput" placeholder="Row Input">
+                        <input type="text" class="form-control mr-1" id="input" placeholder="Row Input">
                     </div>
-                    <button type="button" class="btn btn-primary mb-2">Predict</button>
+                    <button type="button" id="inputbtn" class="btn btn-primary mb-2">Predict</button>
                 </div>
         </div>
         </form>
@@ -58,15 +59,71 @@
                     <input type="file" id="file" name="file">
 
                 </div>
-                <button type="button" class="btn btn-primary mb-2">Predict</button>
+                <button type="button" id="btnfile" class="btn btn-primary mb-2">Predict</button>
             </div>
 
 
 
         </div>
     </div>
-    <table id='myTable' class="table"></table>
-    <hr> {% block content %} {% endblock %}
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th scope="col">Id </th>
+                    <th scope="col">duration</th>
+                    <th scope="col"> protocol_type</th>
+                    <th scope="col">service</th>
+                    <th scope="col"> flag </th>
+                    <th scope="col">src_bytes</th>
+                    <th scope="col">dst_bytes</th>
+                    <th scope="col">land</th>
+                    <th scope="col">wrong_fragment</th>
+                    <th scope="col">urgent</th>
+                    <th scope="col">hot</th>
+                    <th scope="col">num_failed_logins</th>
+                    <th scope="col">logged_in</th>
+                    <th scope="col">num_compromised</th>
+                    <th scope="col">root_shell</th>
+                    <th scope="col">su_attempted</th>
+                    <th scope="col">num_root</th>
+                    <th scope="col">num_file_creations</th>
+                    <th scope="col">num_shells</th>
+                    <th scope="col">num_access_files</th>
+                    <th scope="col">num_outbound_cmds</th>
+                    <th scope="col">is_host_login</th>
+                    <th scope="col">is_guest_login</th>
+                    <th scope="col">count</th>
+                    <th scope="col">srv_count</th>
+                    <th scope="col">serror_rate</th>
+                    <th scope="col">srv_serror_rate</th>
+                    <th scope="col">rerror_rate</th>
+                    <th scope="col">srv_rerror_rate</th>
+                    <th scope="col">same_srv_rate</th>
+                    <th scope="col">diff_srv_rate</th>
+                    <th scope="col">srv_diff_host_rate</th>
+                    <th scope="col">dst_host_count</th>
+                    <th scope="col">dst_host_srv_count</th>
+                    <th scope="col">dst_host_same_srv_rate</th>
+                    <th scope="col">dst_host_diff_srv_rate</th>
+                    <th scope="col">dst_host_same_src_port_rate</th>
+                    <th scope="col">dst_host_srv_diff_host_rate</th>
+                    <th scope="col">dst_host_serror_rate</th>
+                    <th scope="col">dst_host_srv_serror_rate</th>
+                    <th scope="col">dst_host_rerror_rate</th>
+                    <th scope="col">dst_host_srv_rerror_rate</th>
+                    <th scope="col">class</th>
+
+
+                </tr>
+            </thead>
+            <tbody id='myTable'>
+
+            </tbody>
+        </table>
+    </div>
+    {% block content %} {% endblock %}
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -75,26 +132,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
     <script>
-        function GenerateTable(results) {
-            var markup = "<table class='table'>";
-            var data = results.data;
+        var tableId = 0;
 
+        function GenerateTable(results) {
+            var markup = "";
+            var data = results.data;
+            console.log(data);
             for (i = 0; i < data.length; i++) {
                 markup += "<tr>";
                 var row = data[i];
-                console.log(row);
-                var cells = row.join(",").split(",");
+                // console.log(row);
 
+                markup += "<td>";
+                markup += i;
+                markup += "</td>";
+                var cells = row.join(",").split(",");
                 for (j = 0; j < cells.length; j++) {
                     markup += "<td>";
                     markup += cells[j];
-                    markup += "</th>";
+                    markup += "</td>";
                 }
                 markup += "</tr>";
             }
-            markup += "</table>";
+
 
             $("#myTable").html(markup);
+        }
+
+        function CreateCell(id, result) {
+
+            var Row = document.getElementById("myTable").rows[id];
+            var x = Row.insertCell(-1);
+            x.innerHTML = result;
         }
     </script>
 
@@ -124,6 +193,36 @@
             };
             reader.readAsText(f);
         });
+
+
+
+        $(function() {
+
+            $('#inputbtn').click(function() {
+
+                var rowinput = $('#input').val();
+                sendData(rowinput);
+                //console.log(rowinput.split(","));
+
+            });
+        });
+
+        function sendData(data) {
+            $.ajax({
+                url: '/modal',
+                data: {
+                    'data': data
+                },
+                type: 'GET',
+                success: function(response) {
+                    console.log(response);
+                    CreateCell(response.id, response.result);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
     </script>
 
 </body>

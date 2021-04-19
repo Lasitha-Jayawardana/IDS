@@ -34,14 +34,8 @@ def home(name):
 def page_not_found(e):
     return "<h1>404</h1><p>The resource could not be found.</p>", 404
 
-# @views.route('/delete-note', methods=['POST'])
-# def delete_note():
-#     note = json.loads(request.data)
-#     noteId = note['noteId']
-#     note = Note.query.get(noteId)
-#     if note:
-#         if note.user_id == current_user.id:
-#             db.session.delete(note)
-#             db.session.commit()
-
-#     return jsonify({})
+@views.route('/modal', methods=['GET'])
+def modal():
+             
+    #return request.args['data']
+    return jsonify(id =2 , result = request.args['data'])
