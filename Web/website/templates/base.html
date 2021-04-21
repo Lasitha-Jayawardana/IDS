@@ -8,6 +8,8 @@
 
     <title>{% block title %}{% endblock %}</title>
 
+    {% block style %}{% endblock %}
+
 </head>
 
 <body>
@@ -28,202 +30,88 @@
                     <a class="nav-link" href="" data-target="#rowinput" data-toggle="tab"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="" data-target="#csv" data-toggle="tab"><i class="far fa-address-book"></i>File Input </a>
+                    <a class="nav-link" href="" data-target="#csv" data-toggle="tab"><i class="far fa-address-book"></i>CSV Input </a>
+                </li>
+                <li class="nav-item" id="abouttag">
+                    <a class="nav-link" href="" data-toggle="tab"><i class="fas fa-user-graduate"></i> About Us</a>
                 </li>
             </ul>
-
+            <!-- url_for('static', filename='a_picture.png') -->
         </div>
     </nav>
-    <div id="myTabContent" class="tab-content ">
 
-        <div class="tab-pane fade active show" id="rowinput">
+    <section id="bdy">
+        <div id="myTabContent" class="tab-content ">
+            <div class="tab-pane fade active show" id="rowinput">
+                {% block navcontent1 %} {% endblock %}
 
-            <form class="container">
-
-                <div class="d-flex m-3">
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">@</div>
-                        </div>
-                        <input type="text" class="form-control mr-1" id="input" placeholder="Row Input">
-                    </div>
-                    <button type="button" id="inputbtn" class="btn btn-primary mb-2">Predict</button>
-                </div>
-        </div>
-        </form>
-
-
-        <div class="tab-pane fade container" id="csv">
-            <div class="d-flex m-3" style="justify-content: center">
-                <div class="input-group-prepend mb-2">
-                    <input type="file" id="file" name="file">
-
-                </div>
-                <button type="button" id="btnfile" class="btn btn-primary mb-2">Predict</button>
             </div>
-
-
-
+            <div class="tab-pane fade" id="csv">
+                {% block navcontent2 %} {% endblock %}
+            </div>
         </div>
-    </div>
-    <div class="table-responsive text-nowrap">
-        <table class="table">
-
-            <thead>
-                <tr>
-                    <th scope="col">Id </th>
-                    <th scope="col">duration</th>
-                    <th scope="col"> protocol_type</th>
-                    <th scope="col">service</th>
-                    <th scope="col"> flag </th>
-                    <th scope="col">src_bytes</th>
-                    <th scope="col">dst_bytes</th>
-                    <th scope="col">land</th>
-                    <th scope="col">wrong_fragment</th>
-                    <th scope="col">urgent</th>
-                    <th scope="col">hot</th>
-                    <th scope="col">num_failed_logins</th>
-                    <th scope="col">logged_in</th>
-                    <th scope="col">num_compromised</th>
-                    <th scope="col">root_shell</th>
-                    <th scope="col">su_attempted</th>
-                    <th scope="col">num_root</th>
-                    <th scope="col">num_file_creations</th>
-                    <th scope="col">num_shells</th>
-                    <th scope="col">num_access_files</th>
-                    <th scope="col">num_outbound_cmds</th>
-                    <th scope="col">is_host_login</th>
-                    <th scope="col">is_guest_login</th>
-                    <th scope="col">count</th>
-                    <th scope="col">srv_count</th>
-                    <th scope="col">serror_rate</th>
-                    <th scope="col">srv_serror_rate</th>
-                    <th scope="col">rerror_rate</th>
-                    <th scope="col">srv_rerror_rate</th>
-                    <th scope="col">same_srv_rate</th>
-                    <th scope="col">diff_srv_rate</th>
-                    <th scope="col">srv_diff_host_rate</th>
-                    <th scope="col">dst_host_count</th>
-                    <th scope="col">dst_host_srv_count</th>
-                    <th scope="col">dst_host_same_srv_rate</th>
-                    <th scope="col">dst_host_diff_srv_rate</th>
-                    <th scope="col">dst_host_same_src_port_rate</th>
-                    <th scope="col">dst_host_srv_diff_host_rate</th>
-                    <th scope="col">dst_host_serror_rate</th>
-                    <th scope="col">dst_host_srv_serror_rate</th>
-                    <th scope="col">dst_host_rerror_rate</th>
-                    <th scope="col">dst_host_srv_rerror_rate</th>
-                    <th scope="col">class</th>
 
 
-                </tr>
-            </thead>
-            <tbody id='myTable'>
+        {% block tbl %} {% endblock %}
+    </section>
+    {% block about %} {% endblock %}
+    <section class="">
+        <!-- Footer -->
+        <footer class="text-center text-white" style="background-color: #0a4275;">
+            <!-- Grid container -->
+            <div class="container pt-3 pb-0">
+                <h5 class="text-uppercase">Machine Learning Based Intrusion Prediction System <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github m-0"></i
+                    ></a></h5>
+                <div class="container">
 
-            </tbody>
-        </table>
-    </div>
-    {% block content %} {% endblock %}
+                    <!--Grid row-->
+                    <div class="row">
+
+                        <!--Grid column-->
+                        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+
+
+                            <p class="text-left pb-0">
+                                This is the web interface which provide GUI to our web API. This API is open source and free to use.
+                            </p>
+
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+
+                            <p class="text-left">
+                                Neural Network was used as the ML model in the backend and KDD 99-NSL dataset was used to train the model. It accurate around 88.2%.
+                            </p>
+
+                        </div>
+                        <!--Grid column-->
+                    </div>
+                    <!--Grid row-->
+                </div>
+                <!-- Section: CTA -->
+
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">FYP</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+    </section>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
-    <script>
-        var tableId = 0;
+    <script type="text/javascript" src="{{url_for('static', filename='js/base.js')}}"></script>
 
-        function GenerateTable(results) {
-            var markup = "";
-            var data = results.data;
-            console.log(data);
-            for (i = 0; i < data.length; i++) {
-                markup += "<tr>";
-                var row = data[i];
-                // console.log(row);
-
-                markup += "<td>";
-                markup += i;
-                markup += "</td>";
-                var cells = row.join(",").split(",");
-                for (j = 0; j < cells.length; j++) {
-                    markup += "<td>";
-                    markup += cells[j];
-                    markup += "</td>";
-                }
-                markup += "</tr>";
-            }
-
-
-            $("#myTable").html(markup);
-        }
-
-        function CreateCell(id, result) {
-
-            var Row = document.getElementById("myTable").rows[id];
-            var x = Row.insertCell(-1);
-            x.innerHTML = result;
-        }
-    </script>
-
-    <script>
-        var file = document.getElementById('file');
-        file.addEventListener('change', function() {
-            var reader = new FileReader();
-            var f = file.files[0];
-            reader.onload = function(e) {
-
-                $('#file').parse({
-                    config: {
-                        delimiter: "auto",
-                        complete: GenerateTable,
-                    },
-                    before: function(file, inputElem) {
-                        //console.log("Parsing file...", file);
-                    },
-                    error: function(err, file) {
-                        //console.log("ERROR:", err, file);
-                    },
-                    complete: function() {
-                        //console.log("Done with all files");
-                    }
-                });
-
-            };
-            reader.readAsText(f);
-        });
-
-
-
-        $(function() {
-
-            $('#inputbtn').click(function() {
-
-                var rowinput = $('#input').val();
-                sendData(rowinput);
-                //console.log(rowinput.split(","));
-
-            });
-        });
-
-        function sendData(data) {
-            $.ajax({
-                url: '/modal',
-                data: {
-                    'data': data
-                },
-                type: 'GET',
-                success: function(response) {
-                    console.log(response);
-                    CreateCell(response.id, response.result);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        }
-    </script>
 
 </body>
 

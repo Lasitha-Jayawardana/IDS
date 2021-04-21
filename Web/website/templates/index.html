@@ -1,1 +1,221 @@
-{% extends "base.html" %} {% block title %} Home Page {% endblock %} {% block content %} {% endblock %}
+{% extends "base.html" %} {% block title %} Home Page {% endblock %} {% block navcontent1 %}
+
+<div class="card">
+
+    <div class="card-body">
+        <h5 class="card-title">Row Input Mode</h5>
+        <form class="container d-flex">
+            <div>
+
+
+
+                <p class="m-5 text-center" style="font-family: 'Segoe UI',Arial,sans-serif;letter-spacing: 2px;">Insert comma separated values for all KDD99 NSL Dataset parameters which shown in below table as a row input.</p>
+
+                <div class="d-flex m-3">
+
+                    <div class="input-group mb-2">
+
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">@</div>
+                        </div>
+                        <input type="text" class="form-control mr-1" id="input" placeholder="Row Input">
+                    </div>
+                    <button type="button" id="inputbtn" class="btn btn-primary mb-2">Predict</button>
+                </div>
+            </div>
+            <div class="col-lg-4" style="margin-top: -15px;position: relative;"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834136/illus_kftyh4.png" alt="" class="img-fluid"></div>
+
+        </form>
+    </div>
+</div>
+
+
+{% endblock %} {% block navcontent2 %}
+<div class="card">
+
+    <div class="card-body">
+        <h5 class="card-title">Csv Input Mode</h5>
+        <div class="container d-flex">
+            <div>
+                <p class="m-4 text-center" style="font-family: 'Segoe UI',Arial,sans-serif;letter-spacing: 2px;">Insert .csv file which contain all column values of below table without column names. Csv file can contain more than one row.</p>
+
+                <div class="d-flex m-3 border-danger" style="justify-content: center">
+
+                    <div class="input-group-prepend mb-2" style="border-style: groove;
+        padding: 20px;
+        border-width: 1px;
+        border-color: steelblue;
+        border-radius: 24px;">
+                        <input type="file" id="file" name="file" style="line-height: 45px;">
+                        <button type="button" id="btnfile" class="btn btn-primary mb-2">Predict</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 mx-auto" style="margin-top: -25px;position: relative;max-width: 35.667%;"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834136/img-2_vdgqgn.jpg" alt="" class="img-fluid mb-4 mb-lg-0"></div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %} {% block tbl %}
+<div style="display: flex;margin: 35px 50px;border-style: double;
+border-radius: 7px;
+border-color: cornflowerblue;">
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover">
+
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">duration</th>
+                    <th scope="col"> protocol_type</th>
+                    <th scope="col">service</th>
+                    <th scope="col"> flag </th>
+                    <th scope="col">src_bytes</th>
+                    <th scope="col">dst_bytes</th>
+                    <th scope="col">land</th>
+                    <th scope="col">wrong_fragment</th>
+                    <th scope="col">urgent</th>
+                    <th scope="col">hot</th>
+                    <th scope="col">num_failed_logins</th>
+                    <th scope="col">logged_in</th>
+                    <th scope="col">num_compromised</th>
+                    <th scope="col">root_shell</th>
+                    <th scope="col">su_attempted</th>
+                    <th scope="col">num_root</th>
+                    <th scope="col">num_file_creations</th>
+                    <th scope="col">num_shells</th>
+                    <th scope="col">num_access_files</th>
+                    <th scope="col">num_outbound_cmds</th>
+                    <th scope="col">is_host_login</th>
+                    <th scope="col">is_guest_login</th>
+                    <th scope="col">count</th>
+                    <th scope="col">srv_count</th>
+                    <th scope="col">serror_rate</th>
+                    <th scope="col">srv_serror_rate</th>
+                    <th scope="col">rerror_rate</th>
+                    <th scope="col">srv_rerror_rate</th>
+                    <th scope="col">same_srv_rate</th>
+                    <th scope="col">diff_srv_rate</th>
+                    <th scope="col">srv_diff_host_rate</th>
+                    <th scope="col">dst_host_count</th>
+                    <th scope="col">dst_host_srv_count</th>
+                    <th scope="col">dst_host_same_srv_rate</th>
+                    <th scope="col">dst_host_diff_srv_rate</th>
+                    <th scope="col">dst_host_same_src_port_rate</th>
+                    <th scope="col">dst_host_srv_diff_host_rate</th>
+                    <th scope="col">dst_host_serror_rate</th>
+                    <th scope="col">dst_host_srv_serror_rate</th>
+                    <th scope="col">dst_host_rerror_rate</th>
+                    <th scope="col">dst_host_srv_rerror_rate</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody id='myTable'>
+
+            </tbody>
+            <tfoot>
+                <td colspan="40"></td>
+
+            </tfoot>
+        </table>
+    </div>
+
+    <div style="flex: 100px;">
+        <table class="table table-hover" style="border-left: groove;border-color: cornflowerblue;">
+
+            <thead class="table-dark">
+                <tr>
+
+                    <th scope="col">class</th>
+
+
+                </tr>
+            </thead>
+            <tbody id='myTableR'>
+
+            </tbody>
+            <tfoot>
+                <td colspan="40"></td>
+
+            </tfoot>
+        </table>
+    </div>
+</div>
+{% endblock %} {% block about %}
+<section id="abt" style="display: none;">
+    <div class="d-flex">
+        <div class="bg-white">
+            <div class="container py-1">
+                <div class="row h-100 align-items-center py-5">
+                    <div class="col-lg-6">
+                        <h1 class="display-4">About us</h1>
+                        <p class="text-muted mb-0">This web application is a part of our main project which is Machine Learning based Intrusion Detection System.
+
+                        </p>
+                        <p class="lead text-muted">
+                        </p>
+                    </div>
+                    <div class="col-lg-5 px-5 mx-auto"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834136/img-2_vdgqgn.jpg" alt="" class="img-fluid mb-4 mb-lg-0"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="bg-light">
+            <div class="container py-1">
+                <div class="row mb-1">
+                    <div class="col-lg-5 ml-2">
+                        <h2 class="display-4 font-weight-light">Our team</h2>
+                        <p class="font-italic text-muted">Main Contributers and supporters in our project.</p>
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <!-- Team item-->
+                    <div class="col-xl-3 col-sm-6 mb-5">
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834133/avatar-1_s02nlg.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                            <h5 class="mb-0">Dr. Lasith Yasakethu</h5><span class="small text-uppercase text-muted">Supervisor</span>
+
+                        </div>
+                    </div>
+                    <!-- End-->
+
+                    <!-- Team item-->
+                    <div class="col-xl-3 col-sm-6 mb-5">
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834130/avatar-3_hzlize.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                            <h5 class="mb-0">Mr. Pushpika</h5><span class="small text-uppercase text-muted">Co-Supervisor</span>
+
+                        </div>
+                    </div>
+                    <!-- End-->
+
+                    <!-- Team item-->
+                    <div class="col-xl-3 col-sm-6 mb-5">
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834133/avatar-2_f8dowd.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                            <h5 class="mb-0">Mr. Lasitha Jayawardana</h5><span class="small text-uppercase text-muted">Creator</span>
+
+                        </div>
+                    </div>
+                    <!-- End-->
+
+                    <!-- Team item-->
+                    <div class="col-xl-3 col-sm-6 mb-5">
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834133/avatar-2_f8dowd.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                            <h5 class="mb-0">Mr. Sharuka Thirimanne</h5><span class="small text-uppercase text-muted">Creator</span>
+
+                        </div>
+                    </div>
+                    <!-- End-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

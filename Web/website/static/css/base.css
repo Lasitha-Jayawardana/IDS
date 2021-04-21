@@ -21,7 +21,7 @@ i {
 }
 
 .navbar-mainbg {
-    background-color: #5161ce;
+    background-color: #0d6efd;
     padding: 0px;
 }
 
@@ -35,7 +35,7 @@ i {
     margin: 0px;
 }
 
-#navbarSupportedContent ul li a i {
+#navbarSupportedContent ul li a {
     margin-right: 10px;
 }
 
@@ -117,7 +117,7 @@ i {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #5161ce;
+    background-color: #0d6efd;
 }
 
 .hori-selector .right:before {
@@ -182,4 +182,24 @@ i {
         bottom: -25px;
         left: -25px;
     }
+}
+
+.social-link {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    border-radius: 50%;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.social-link:hover,
+.social-link:focus {
+    background: #ddd;
+    text-decoration: none;
+    color: #555;
 }
