@@ -203,3 +203,8 @@ i {
     text-decoration: none;
     color: #555;
 }
+
+td {
+    padding: 5px;
+    text-align: center;
+}

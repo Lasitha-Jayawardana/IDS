@@ -1,48 +1,32 @@
 import keras.models
+import joblib
 
-
-# loading model
 from keras.models import model_from_json
+#Pipelines
+from sklearn.pipeline import make_pipeline
+from sklearn.compose import make_column_transformer
 
-# estimator = model_from_json(open('model_architecture.json').read())
-# estimator.load_weights('model_weights.h5')
-
-# cc = ['duration', 'protocol_type', 'service', 'flag', 'src_bytes','dst_bytes', 'land', 'wrong_fragment', 'urgent', 'hot',
-#       'num_failed_logins', 'logged_in', 'num_compromised', 'root_shell','su_attempted', 'num_root', 'num_file_creations', 
-#       'num_shells','num_access_files', 'num_outbound_cmds', 'is_host_login','is_guest_login', 'count', 'srv_count', 
-#       'serror_rate','srv_serror_rate', 'rerror_rate', 'srv_rerror_rate', 'same_srv_rate','diff_srv_rate', 'srv_diff_host_rate', 
-#       'dst_host_count','dst_host_srv_count', 'dst_host_same_srv_rate','dst_host_diff_srv_rate', 'dst_host_same_src_port_rate',
-#       'dst_host_srv_diff_host_rate', 'dst_host_serror_rate','dst_host_srv_serror_rate', 'dst_host_rerror_rate',
-#       'dst_host_srv_rerror_rate']
-
-# x2 = """0,tcp,private,REJ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,229,10,0,0,1,1,0.04,0.06,0,255,10,0.04,0.06,0,0,0,0,1,1"""
-# str_data = StringIO(x2)
-
-# df_tt = pd.read_csv(str_data,sep=",",names=cc)
-
-# test_predictions = pipe.predict(df_tt)
-# print(test_predictions)
-
-
-
-
-
+from sklearn.pipeline import Pipeline
 
 
 def init(): 
-	json_file = open('website/model/model_architecture.json','r')
-	loaded_model_json = json_file.read()
-	json_file.close()
-	loaded_model = model_from_json(loaded_model_json)
-	#load weights into new model
-	loaded_model.load_weights("website/model/model_weights.h5")
-	print("Loaded Model from disk")
+	# Load the model
+	estimator = model_from_json(open('website/model/model_architecture.json','r').read())
+	estimator.load_weights('website/model/model_weights.h5')
 
-	#compile and evaluate loaded model
-	loaded_model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-	#loss,accuracy = model.evaluate(X_test,y_test)
-	#print('loss:', loss)
-	#print('accuracy:', accuracy)
+	# Load Column Transformer 
+	column_transformer = joblib.load('website/model/columnTransformer')
+
+	METRICS = [ 
+      keras.metrics.BinaryAccuracy(name='accuracy'),
+      keras.metrics.Precision(name='precision'),
+      keras.metrics.Recall(name='recall'),
+      keras.metrics.AUC(name='auc'),
+]
+	estimator.compile(loss='binary_crossentropy', optimizer='sgd', metrics = METRICS)
+	pipe = Pipeline(steps=[
+    ('preprocessing',column_transformer),
+    ('classifier',estimator)])
+
 	
-
-	return loaded_model
+	return pipe

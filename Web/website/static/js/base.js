@@ -47,12 +47,13 @@ function GenerateTable(results) {
     for (i = 0; i < data.length; i++) {
         markup += "<tr>";
         var row = data[i];
-        //console.log(row);
+        console.log(row);
 
         markup += "<td>";
         markup += i;
         markup += "</td>";
         m += "<tr><td><i class='fas fa-question-circle'></i></td></tr>";
+        sendData(i, row[0]);
         var cells = row.join(",").split(",");
         for (j = 0; j < cells.length; j++) {
             markup += "<td>";
@@ -69,8 +70,15 @@ function GenerateTable(results) {
 function CreateCell(id, result) {
 
     var Row = document.getElementById("myTableR").rows[id];
-    var x = Row.insertCell(0);
-    x.innerHTML = result;
+    if (result == 'Anomaly') {
+        Row.innerHTML = "<td>" + result + " <i style='color: red;font-size: larger;' class='fas fa-bug'></i></td>";
+    } else {
+        Row.innerHTML = "<td>" + result + " <i style='color: green;font-size: larger;' class='fas fa-shield-check'></i></td>";
+    }
+
+
+
+
 }
 
 var file = document.getElementById('file');
@@ -106,17 +114,23 @@ $(function() {
     $('#inputbtn').click(function() {
 
         var rowinput = $('#input').val();
-        sendData(rowinput);
+        GenerateTable({
+            'data': [
+                [rowinput]
+            ]
+        });
+        sendData(0, rowinput);
         //console.log(rowinput.split(","));
 
     });
 });
 
-function sendData(data) {
+function sendData(id, data) {
 
     $.ajax({
-        url: '/modal',
+        url: '/predict',
         data: {
+            'id': id,
             'data': data
         },
         type: 'GET',
