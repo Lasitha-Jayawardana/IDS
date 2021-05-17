@@ -125,7 +125,7 @@ $(function() {
     });
 });
 
-function sendData(id, data) {
+function sendData(id = 0, data) {
 
     $.ajax({
         url: '/predict',
