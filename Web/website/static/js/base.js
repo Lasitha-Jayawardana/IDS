@@ -128,10 +128,10 @@ $(function() {
 function sendData(id = 0, data) {
 
     $.ajax({
-        url: '/predict',
+        url: '/api/v1',
         data: {
             'id': id,
-            'data': data
+            'featureVec': data
         },
         type: 'GET',
         success: function(response) {
