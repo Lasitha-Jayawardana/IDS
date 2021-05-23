@@ -148,9 +148,17 @@ $("nav").click(function() {
     if ($('#abouttag').hasClass('active')) {
         $('#bdy').css('display', 'none');
         $('#abt').css('display', 'block');
+        $('#ovw').css('display', 'none');
+
+    } else if ($('#overtag').hasClass('active')) {
+        $('#bdy').css('display', 'none');
+        $('#ovw').css('display', 'block');
+        $('#abt').css('display', 'none');
+
     } else {
         $('#bdy').css('display', 'block');
         $('#abt').css('display', 'none');
+        $('#ovw').css('display', 'none');
     }
 
 });

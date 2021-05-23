@@ -10,6 +10,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% block style %}{% endblock %}
 
+
 </head>
 
 <body>
@@ -20,7 +21,7 @@
         <i class="fas fa-bars text-white"></i>
     </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-right: 30px;">
             <ul class="navbar-nav ml-auto nav">
                 <div class="hori-selector">
                     <div class="left"></div>
@@ -30,20 +31,22 @@
                     <a class="nav-link" href="" data-target="#rowinput" data-toggle="tab"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="" data-target="#csv" data-toggle="tab"><i class="far fa-address-book"></i>CSV Input </a>
+                    <a class="nav-link" href="" data-target="#csv" data-toggle="tab"><i class="far fa-file-csv"></i>CSV Input </a>
                 </li>
-                <li class="nav-item" id="">
-                    <a class="nav-link" href="" data-toggle="tab"><i class="fas fa-user-graduate"></i> API Documentation</a>
-                </li>
-                <li class="nav-item" id="">
-                    <a class="nav-link" href="" data-toggle="tab"><i class="fas fa-user-graduate"></i> Project Details</a>
+
+                <li class="nav-item" id="overtag">
+                    <a class="nav-link" href="" data-toggle="tab"><i class="fas fa-tasks"></i> Project Details</a>
                 </li>
                 <li class="nav-item" id="abouttag">
                     <a class="nav-link" href="" data-toggle="tab"><i class="fas fa-user-graduate"></i> About Us</a>
                 </li>
+
             </ul>
             <!-- url_for('static', filename='a_picture.png') -->
         </div>
+
+        <div class="container-md pr-2">
+            <a class="btn" target="_tab" href="http://127.0.0.1:5000/api/doc"><button class="btn btn-outline-success me-2 p-2" style="color: white" type="button" ><i class="fab fa-readme"></i> API Docs</button></a></div>
     </nav>
 
     <section id="bdy">
@@ -60,7 +63,8 @@
 
         {% block tbl %} {% endblock %}
     </section>
-    {% block about %} {% endblock %}
+    {% block overview %} {% endblock %} {% block about %} {% endblock %}
+
     <section class="">
         <!-- Footer -->
         <footer class="text-center text-white" style="background-color: #0a4275;">
@@ -110,6 +114,11 @@
         </footer>
         <!-- Footer -->
     </section>
+
+
+    </div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
