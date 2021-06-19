@@ -1,0 +1,7 @@
+.vscode/*
+env/*
+AWS Deplyment.txt
+*.xlsx
+website/__pycache__
+*.pyc
+*.py[cod]
