@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx:1.15
+    container_name: nginx
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    networks:
+      - my-network
+    depends_on:
+      - api
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: api
+    command: gunicorn --bind 0.0.0.0:8000 --workers 4 "main:app"
+    volumes:
+      - .:/app
+    networks:
+      my-network:
+        aliases:
+          - api-app
+
+networks:
+  my-network:
